@@ -1,0 +1,108 @@
+general:
+  log_file_path: /var/log/generator/
+  data_dir: /usr/local/noise
+
+
+
+protocol:
+
+  dns:
+ 
+    sleep_time: 1
+    dst_ip: 4.2.2.1
+  
+    zone:
+     - domain: google.com
+       operation: TXT,A,MX,NS
+       aaa_data: www,info, mail
+       
+     - domain: yahoo.com
+       operation: A,TXT,MX
+       aaa_data: www, smtp, vpn
+
+
+  http:
+
+    src_ip: 192.168.1.1
+    user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:50.0) Gecko/20100101 Firefox/50.0"
+
+    domain:
+    -
+      port: 80
+      sleep_time: 2
+      process_time: 5
+      name: www.example.com
+
+      get:
+        - url: "/admin1/q/1"
+        - url: "/admin2?param1=test-1&param2=test-2"
+
+      post:
+        - url: "/admin1"
+          data: "param1=abc&param2=xyz"
+
+        - url: "/admin2"
+          data: "param3=test-1&param4=test&param4=none" 
+
+
+    -
+      port: 80
+      sleep_time: 1
+      process_time: 4
+      name: www.example2.com
+
+      get:
+        - url: "/admin3/q/3"
+        - url: "/admin4?param5=test-5&param6=test-6"
+
+
+      post:
+        - url: "/admin3/login3" 
+          data: "param4=abc&param5=xyz"
+
+        - url: "/admin4/login4"
+          data: "param4=test-5&param5=test-5&param6=test-6"
+
+
+  https:
+
+    src_ip: 192.168.1.1
+    user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:50.0) Gecko/20100101 Firefox/50.0"
+
+    domain:
+    -
+      port: 443
+      sleep_time: 1
+      process_time: 5
+      name: www.example.com
+
+      get:
+        - url: "/admin1/q/1"
+        - url: "/admin2?param1=test-1&param2=test-2"
+
+      post:
+        - url: "/admin1/qw/1" 
+          data: "param2=abc&param3=xyz"
+
+        - url: "/admin2/qw/2"
+          data: "param3=test-3&param4=test-4&param4=test-5"
+
+
+
+    -
+      port: 443
+      sleep_time: 2
+      process_time: 4
+      name: www.example2.com
+
+      get:
+        - url: "/admin2/q/1"
+        - url: "/admin2?param1=test-1&param2=test-2"
+
+
+      post:
+        - url: "/admin2/q/2" 
+          data: "param2=abc&param3=xyz"
+
+        - url: "/admin2/q/2"
+          data: "param4=test-1&param5=test-2&param6=test-3"
