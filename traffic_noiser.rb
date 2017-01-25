@@ -1,13 +1,11 @@
 #!/usr/bin/ruby
 
-
 require 'uri'
 require 'yaml'
 require 'resolv'
 require 'optparse'
 require 'net/http'
 require 'net/https'
-
 
 
 class TrafficNoise
@@ -46,6 +44,8 @@ class TrafficNoise
 
                 return http, uri        
         end
+        
+        
         def http_get(sleep_time, url, user_agent, is_ssl)
                 
                 while true
@@ -59,7 +59,6 @@ class TrafficNoise
                         sleep(sleep_time.to_int)
                 end
         end
-
 
 
         def http_post(sleep_time, url, data, user_agent, is_ssl)
@@ -76,6 +75,8 @@ class TrafficNoise
 
                 end
         end
+        
+        
         def do_dns(domain, dns_server, a_records, type)
 
                 dns = Resolv::DNS.new(:nameserver => ["#{dns_server}"], :ndots => 1)
@@ -102,7 +103,6 @@ class TrafficNoise
         end
 
 
-
         def dns(options)
                 dns_server = options["dst_ip"]          
                 sleep_time = options["sleep_time"]
@@ -121,6 +121,8 @@ class TrafficNoise
                         end
                 end
         end
+        
+        
         def http(options, is_ssl)
 
                 thread_array = []
@@ -160,6 +162,8 @@ class TrafficNoise
 
                 thread_array.each { |thread| thread.join }
         end
+        
+        
         def run()
                 config_file = @options[:config]
                 config_values = YAML.load_file(config_file)
@@ -185,9 +189,7 @@ class TrafficNoise
 end
 
 
-
 if __FILE__ == $0
-        
         traffic_noiser = TrafficNoise.new
         traffic_noiser.run
 end
